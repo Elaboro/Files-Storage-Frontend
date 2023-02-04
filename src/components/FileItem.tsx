@@ -60,10 +60,10 @@ const FileItem: FC<{ file_data: FileData }> = ({
                 />
                 <MenuList>
                   <MenuItem icon={<AiOutlineDownload size={20} />}>
-                    Download
+                    Скачать
                   </MenuItem>
                   <MenuItem icon={<AiOutlineClose size={20} />}>
-                    Delete
+                    Удалить
                   </MenuItem>
                 </MenuList>
               </Menu>
