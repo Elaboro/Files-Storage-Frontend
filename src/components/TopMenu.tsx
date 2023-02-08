@@ -1,21 +1,35 @@
-import React, { FC } from "react";
+import React,
+{
+  FC,
+  useContext,
+} from "react";
 import { Spacer } from "@chakra-ui/react";
-import LoginButton from "./auth/LoginButton";
-import LogoutButton from "./auth/LogoutButton";
-import RegistrationButton from "./auth/RegistrationButton";
-import UploadFilesButton from "./storage/UploadFilesButton";
+import LoginMenuPart from "./auth/LoginMenuPart";
+import LogoutMenuPart from "./auth/LogoutMenuPart";
+import RegistrationMenuPart from "./auth/RegistrationMenuPart";
+import UploadFilesMenuPart from "./storage/UploadFilesMenuPart";
 import Menu from "./ui/Menu";
+import {
+  AuthContext,
+  AuthContextProps,
+} from "../context";
 
 const TopMenu: FC = () => {
+  const { isAuth } = useContext<AuthContextProps>(AuthContext);
+
   return (
     <Menu>
-      <LoginButton />
-      <RegistrationButton />
-      <LogoutButton />
-
-      <Spacer />
-
-      <UploadFilesButton />
+      {isAuth
+        ? <>
+          <LogoutMenuPart />
+          <Spacer />
+          <UploadFilesMenuPart />
+        </>
+        : <>
+          <LoginMenuPart />
+          <RegistrationMenuPart />
+        </>
+      }
     </Menu>
   );
 };

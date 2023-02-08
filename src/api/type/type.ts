@@ -4,3 +4,13 @@ export interface FileData {
   filename: string;
   username: string;
 }
+
+export interface FileDeleteResponse {
+  id: number;
+  filename: string;
+}
+
+export interface FileDownloadRequest {
+  id: number;
+  key: string;
+}
