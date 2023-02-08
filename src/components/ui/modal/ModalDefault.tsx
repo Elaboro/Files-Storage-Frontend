@@ -27,6 +27,7 @@ interface IModalDefault {
   body: ReactNode;
   button_to_footer: IButtonToFutter[];
   disclosure: UseDisclosureReturn;
+  contentMinW?: number;
 }
 
 const ModalDefault: FC<IModalDefault> = ({
@@ -34,6 +35,7 @@ const ModalDefault: FC<IModalDefault> = ({
   body,
   button_to_footer,
   disclosure,
+  contentMinW = undefined,
 }) => {
   const { isOpen, onClose } = disclosure;
   const key = useId();
@@ -47,7 +49,9 @@ const ModalDefault: FC<IModalDefault> = ({
       <ModalOverlay
         backdropFilter='blur(3px)'
       />
-      <ModalContent>
+      <ModalContent
+        minW={contentMinW}
+      >
         <ModalHeader>{header}</ModalHeader>
         <ModalCloseButton />
         <ModalBody
