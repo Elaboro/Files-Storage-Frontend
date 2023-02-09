@@ -26,6 +26,7 @@ import {
   Spacer,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import {
   AiFillFileUnknown,
@@ -58,6 +59,7 @@ const FileItem: FC<{
     isAuth,
   } = useContext<AuthContextProps>(AuthContext);
 
+  const toast = useToast();
   const [key, setKey] = useState<string>("");
 
   const onDelete = async (file_data: FileData) => {
@@ -69,10 +71,19 @@ const FileItem: FC<{
   const initialRefDownload = useRef(null);
 
   const onDownload = async (file_data: FileData) => {
-    await FileStorageService.download({
-      id: file_data.id,
-      key
-    });
+    try {
+      await FileStorageService.download({
+        id: file_data.id,
+        key
+      });
+    } catch(e: any) {
+      const data_error = JSON.parse(await new Response(e?.response?.data).text()) as Error;
+      toast({
+        title: `Не удалось скачать: ${data_error?.message}`,
+        status: "error",
+        isClosable: true,
+      })
+    }
 
     setKey("");
     disclosureDownload.onClose();
