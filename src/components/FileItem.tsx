@@ -9,6 +9,7 @@ import React,
 import {
   Card,
   CardBody,
+  CardHeader,
   Center,
   Container,
   Flex,
@@ -24,7 +25,6 @@ import {
   MenuList,
   Spacer,
   Text,
-  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
 import {
@@ -32,6 +32,9 @@ import {
   AiOutlineClose,
   AiOutlineDownload,
 } from "react-icons/ai";
+import {
+  FaRegUserCircle,
+} from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi"
 import { FileData } from "../api/type/type";
 import {
@@ -123,46 +126,80 @@ const FileItem: FC<{ file_data: FileData }> = ({
 
   return (
     <div>
-      <Tooltip placement='top' label={`Owner: ${file_data.username}`} bg='blue.400'>
-        <Card>
-          <CardBody>
-            <Flex>
+      <Card minHeight={"100%"} variant={"filled"}>
 
-              <Container>
-                <Grid>
-                  <GridItem>
-                    <Center>
-                      <AiFillFileUnknown size={70} />
-                    </Center>
-                  </GridItem>
-                  <GridItem>
-                    <Center>
-                      <Text>{file_data.filename}</Text>
-                    </Center>
-                  </GridItem>
-                </Grid>
-              </Container>
+        <CardHeader paddingBottom={0}>
+          <Flex>
+            <Center><FaRegUserCircle size={15} /></Center>
+            <Container
+              paddingLeft={"5px"}
+              display="inline-block"
+              alignSelf={"center"}
+            >
+              <Text
+                fontSize='lg'
+                wordBreak={"break-word"}
+                overflow="hidden"
+                textOverflow="ellipsis"
+                display="-webkit-box"
+                style={{
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical"
+                }}
+              >{file_data.username}</Text>
+            </Container>
 
-              {isAuth && <>
-                <Spacer />
+            {isAuth && <>
+              <Spacer />
 
-                <Menu>
-                  <MenuButton
-                    as={IconButton}
-                    aria-label='Options'
-                    icon={<GiHamburgerMenu />}
-                    variant='outline'
-                  />
-                  <MenuList>
-                    {MenuDownloadItem}
-                    {MenuDeleteItem}
-                  </MenuList>
-                </Menu>
-              </>}
-            </Flex>
-          </CardBody>
-        </Card>
-      </Tooltip>
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label='Options'
+                  icon={<GiHamburgerMenu />}
+                  variant='outline'
+                />
+                <MenuList>
+                  {MenuDownloadItem}
+                  {MenuDeleteItem}
+                </MenuList>
+              </Menu>
+            </>}
+          </Flex>
+
+        </CardHeader>
+
+        <CardBody>
+          <Flex>
+
+            <Container>
+              <Grid>
+                <GridItem>
+                  <Center>
+                    <AiFillFileUnknown size={70} />
+                  </Center>
+                </GridItem>
+                <GridItem>
+                  <Center>
+                    <Text
+                      fontWeight={"bold"}
+                      color={"#23477e"}
+                      wordBreak={"break-word"}
+                      overflow="hidden"
+                      textOverflow="ellipsis"
+                      display="-webkit-box"
+                      style={{
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical"
+                      }}
+                    >{file_data.filename}</Text>
+                  </Center>
+                </GridItem>
+              </Grid>
+            </Container>
+          </Flex>
+        </CardBody>
+      </Card>
     </div>
   );
 };
