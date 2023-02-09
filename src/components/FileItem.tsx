@@ -36,7 +36,10 @@ import {
   FaRegUserCircle,
 } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi"
-import { FileData } from "../api/type/type";
+import {
+  FileData,
+  FileDeleteResponse,
+} from "../api/type/type";
 import {
   AuthContext,
   AuthContextProps,
@@ -44,8 +47,12 @@ import {
 import FileStorageService from "../api/FileStorageService";
 import ModalDefault from "./ui/modal/ModalDefault";
 
-const FileItem: FC<{ file_data: FileData }> = ({
-  file_data
+const FileItem: FC<{
+  file_data: FileData,
+  onDeleteFile: (file_data: FileDeleteResponse) => void,
+}> = ({
+  file_data,
+  onDeleteFile,
 }) => {
   const {
     isAuth,
@@ -54,7 +61,8 @@ const FileItem: FC<{ file_data: FileData }> = ({
   const [key, setKey] = useState<string>("");
 
   const onDelete = async (file_data: FileData) => {
-    await FileStorageService.delete(file_data.id);
+    const file_data_deleted = await FileStorageService.delete(file_data.id);
+    onDeleteFile(file_data_deleted);
   };
 
   const disclosureDownload = useDisclosure();

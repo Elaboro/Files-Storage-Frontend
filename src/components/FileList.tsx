@@ -1,10 +1,20 @@
-import React, { FC } from "react";
+import React,
+{
+  FC,
+} from "react";
 import { SimpleGrid } from "@chakra-ui/react";
-import { FileData } from "../api/type/type";
+import {
+  FileData,
+  FileDeleteResponse,
+} from "../api/type/type";
 import FileItem from './FileItem';
 
-const FileList: FC<{ file_data: FileData[] }> = ({
-  file_data
+const FileList: FC<{
+  file_data: FileData[],
+  onDeleteFile: (file_data: FileDeleteResponse) => void,
+}> = ({
+  file_data,
+  onDeleteFile,
 }) => {
   return (
     <div>
@@ -20,6 +30,7 @@ const FileList: FC<{ file_data: FileData[] }> = ({
           <FileItem
             file_data={file_data}
             key={file_data.id}
+            onDeleteFile={onDeleteFile}
           />
         )}
 

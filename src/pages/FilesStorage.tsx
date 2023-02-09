@@ -5,14 +5,17 @@ import React,
 } from "react";
 import FileList from "../components/FileList";
 import FileStorageService from "../api/FileStorageService";
-import { FileData } from "../api/type/type";
+import {
+  FileData,
+  FileDeleteResponse,
+} from "../api/type/type";
 
 const FilesStorage = () => {
 
-  const [file_data, setFileDataList] = useState<FileData[]>([]);
+  const [file_data_list, setFileDataList] = useState<FileData[]>([]);
 
   useEffect(() => {
-      fetchFiles();
+    fetchFiles();
   }, []);
 
   const fetchFiles = async () => {
@@ -20,9 +23,18 @@ const FilesStorage = () => {
     setFileDataList(file_data);
   };
 
-  return(
+  const onDeleteFile = (file_data_deleted: FileDeleteResponse) => {
+    setFileDataList(file_data_list.filter(
+      file => file.id !== file_data_deleted.id
+    ));
+  };
+
+  return (
     <div>
-      <FileList file_data={file_data} />
+      <FileList
+        file_data={file_data_list}
+        onDeleteFile={onDeleteFile}
+      />
     </div>
   );
 };
