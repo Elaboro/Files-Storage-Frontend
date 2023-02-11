@@ -5,11 +5,11 @@ import React,
   DragEvent,
 } from "react";
 
-interface IUploadFiles {
+interface UploadFilesProps {
   onSelectedFile(file_list: File[]): void;
-}
+};
 
-const UploadFiles: FC<IUploadFiles> = ({
+const UploadFiles: FC<UploadFilesProps> = ({
   onSelectedFile,
 }) => {
   const [drag, setDrag] = useState(false);

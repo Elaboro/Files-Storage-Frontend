@@ -9,10 +9,12 @@ import {
 } from "../api/type/type";
 import FileItem from './FileItem';
 
-const FileList: FC<{
-  file_data: FileData[],
-  onDeleteFile: (file_data: FileDeleteResponse) => void,
-}> = ({
+interface FileListProps {
+  file_data: FileData[];
+  onDeleteFile: (file_data: FileDeleteResponse) => void;
+};
+
+const FileList: FC<FileListProps> = ({
   file_data,
   onDeleteFile,
 }) => {

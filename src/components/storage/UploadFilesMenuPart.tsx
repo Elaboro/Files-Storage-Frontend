@@ -23,9 +23,11 @@ import UploadFiles from "../ui/UploadFiles";
 import FileStorageService from "../../api/FileStorageService";
 import { FileData } from "../../api/type/type";
 
-const UploadFilesMenuPart: FC<{
+interface UploadFilesMenuPartProps {
   onUploadedFile(file_list: FileData[]): void;
-}> = ({
+};
+
+const UploadFilesMenuPart: FC<UploadFilesMenuPartProps> = ({
   onUploadedFile,
 }) => {
   const disclosure = useDisclosure();

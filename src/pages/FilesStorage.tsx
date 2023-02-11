@@ -12,17 +12,19 @@ import {
 } from "../api/type/type";
 import { FC } from "react";
 
-const FilesStorage: FC<{
-  file_data_list: FileData[],
+interface FilesStorageProps {
+  file_data_list: FileData[];
   setFileDataList: Dispatch<SetStateAction<FileData[]>>;
-}> = ({
+};
+
+const FilesStorage: FC<FilesStorageProps> = ({
   file_data_list,
   setFileDataList,
 }) => {
 
   useEffect(() => {
     fetchFiles();
-  }, []);
+  });
 
   const fetchFiles = async () => {
     const file_data = await FileStorageService.getList();

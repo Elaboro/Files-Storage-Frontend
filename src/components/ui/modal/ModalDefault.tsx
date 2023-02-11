@@ -22,15 +22,15 @@ interface IButtonToFutter {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-interface IModalDefault {
+interface ModalDefaultProps {
   header: string;
   body: ReactNode;
   button_to_footer: IButtonToFutter[];
   disclosure: UseDisclosureReturn;
   contentMinW?: number;
-}
+};
 
-const ModalDefault: FC<IModalDefault> = ({
+const ModalDefault: FC<ModalDefaultProps> = ({
   header,
   body,
   button_to_footer,

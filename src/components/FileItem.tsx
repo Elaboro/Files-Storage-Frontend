@@ -48,10 +48,12 @@ import {
 import FileStorageService from "../api/FileStorageService";
 import ModalDefault from "./ui/modal/ModalDefault";
 
-const FileItem: FC<{
-  file_data: FileData,
-  onDeleteFile: (file_data: FileDeleteResponse) => void,
-}> = ({
+interface FileItemProps {
+  file_data: FileData;
+  onDeleteFile: (file_data: FileDeleteResponse) => void;
+};
+
+const FileItem: FC<FileItemProps> = ({
   file_data,
   onDeleteFile,
 }) => {

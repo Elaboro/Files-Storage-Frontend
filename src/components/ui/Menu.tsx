@@ -5,11 +5,11 @@ import React,
 } from "react";
 import { HStack } from "@chakra-ui/react";
 
-interface IMenu {
+interface MenuProps {
   children?: ReactNode;
-}
+};
 
-const Menu: FC<IMenu> = ({
+const Menu: FC<MenuProps> = ({
   children
 }) => {
   return (
