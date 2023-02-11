@@ -13,8 +13,15 @@ import {
   AuthContext,
   AuthContextProps,
 } from "../context";
+import { FileData } from "../api/type/type";
 
-const TopMenu: FC = () => {
+interface TopMenuProps {
+  onUploadedFile(file_list: FileData[]): void;
+};
+
+const TopMenu: FC<TopMenuProps> = ({
+  onUploadedFile,
+}) => {
   const { isAuth } = useContext<AuthContextProps>(AuthContext);
 
   return (
@@ -23,7 +30,7 @@ const TopMenu: FC = () => {
         ? <>
           <LogoutMenuPart />
           <Spacer />
-          <UploadFilesMenuPart />
+          <UploadFilesMenuPart onUploadedFile={onUploadedFile} />
         </>
         : <>
           <LoginMenuPart />

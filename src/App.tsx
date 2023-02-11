@@ -11,6 +11,7 @@ import FileStorageHeader from "./components/FileStorageHeader";
 import TopMenu from "./components/TopMenu";
 import { AuthContext } from "./context";
 import AuthService from "./api/AuthService";
+import { FileData } from "./api/type/type";
 
 export const App = () => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
@@ -22,6 +23,11 @@ export const App = () => {
     })();
   }, []);
 
+  const [file_data_list, setFileDataList] = useState<FileData[]>([]);
+  const DontDoThat_OnUploadedFile = (file_list_uploaded: FileData[]): void => {
+    setFileDataList([...file_data_list, ...file_list_uploaded]);
+  };
+
   return (
     <AuthContext.Provider value={{
       isAuth,
@@ -31,8 +37,13 @@ export const App = () => {
         <Container maxW='container.lg'>
 
           <FileStorageHeader />
-          <TopMenu />
-          <FilesStorage />
+          <TopMenu
+            onUploadedFile={DontDoThat_OnUploadedFile}
+          />
+          <FilesStorage
+            file_data_list={file_data_list}
+            setFileDataList={setFileDataList}
+          />
 
         </Container>
       </div>

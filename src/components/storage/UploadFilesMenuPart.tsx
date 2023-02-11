@@ -19,12 +19,20 @@ import React,
 } from "react";
 import ModalDefault from "../ui/modal/ModalDefault";
 import CryptoJS from "crypto-js";
+import UploadFiles from "../ui/UploadFiles";
+import FileStorageService from "../../api/FileStorageService";
+import { FileData } from "../../api/type/type";
 
-const UploadFilesMenuPart: FC = () => {
+const UploadFilesMenuPart: FC<{
+  onUploadedFile(file_list: FileData[]): void;
+}> = ({
+  onUploadedFile,
+}) => {
   const disclosure = useDisclosure();
   const initialRef = useRef(null);
   const [keyAES, setKeyAES] = useState<string>("");
   const [tooltipCopyClickIsOpen, setTooltipCopyClickIsOpen] = useState<boolean>(false);
+  const [fileListSelected, setFileListSelected] = useState<File[]>([]);
 
   const copyClick = async () => {
     navigator.clipboard.writeText(keyAES).then(
@@ -34,7 +42,21 @@ const UploadFilesMenuPart: FC = () => {
       }
     );
   };
-  const onUpload = () => { };
+  const onUpload = async () => { 
+    const file_list = await FileStorageService.upload({
+      key: keyAES,
+      file_list: fileListSelected,
+    });
+    disclosure.onClose();
+    onUploadedFile(file_list);
+  };
+
+  const onSelectedFile = async (file_list: File[]): Promise<void> => {
+    setFileListSelected([
+      ...fileListSelected,
+      ...file_list,
+    ]);
+  };
 
   const onGenerateKey = () => {
     const key = CryptoJS.lib.WordArray.random(16).toString();
@@ -74,7 +96,7 @@ const UploadFilesMenuPart: FC = () => {
     </FormControl>
 
     <FormControl mt={4}>
-      Add file
+      <UploadFiles onSelectedFile={onSelectedFile} />
     </FormControl>
   </>);
 

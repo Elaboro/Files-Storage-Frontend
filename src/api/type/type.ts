@@ -14,3 +14,8 @@ export interface FileDownloadRequest {
   id: number;
   key: string;
 }
+
+export interface FileUploadRequest {
+  key: string;
+  file_list: File[];
+}

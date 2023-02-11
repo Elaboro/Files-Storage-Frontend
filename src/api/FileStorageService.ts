@@ -8,6 +8,7 @@ import {
   FileData,
   FileDeleteResponse,
   FileDownloadRequest,
+  FileUploadRequest,
 } from "./type/type";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -43,6 +44,19 @@ export default class FileStorageService {
 
   static async delete(id: number): Promise<FileDeleteResponse> {
     const response = await axios.delete<FileDeleteResponse>(`${API_URL}/storage/delete/${id}`, {
+      ...getConfig()
+    });
+    return response.data;
+  }
+
+  static async upload({ key, file_list }: FileUploadRequest): Promise<FileData[]> {
+    const data = new FormData();
+    data.append("key", key);
+    file_list.map(file => 
+      data.append("files", file)
+    );
+
+    const response = await axios.post<FileData[]>(`${API_URL}/storage/upload`, data, {
       ...getConfig()
     });
     return response.data;

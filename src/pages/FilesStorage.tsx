@@ -1,7 +1,8 @@
 import React,
 {
+  Dispatch,
+  SetStateAction,
   useEffect,
-  useState,
 } from "react";
 import FileList from "../components/FileList";
 import FileStorageService from "../api/FileStorageService";
@@ -9,10 +10,15 @@ import {
   FileData,
   FileDeleteResponse,
 } from "../api/type/type";
+import { FC } from "react";
 
-const FilesStorage = () => {
-
-  const [file_data_list, setFileDataList] = useState<FileData[]>([]);
+const FilesStorage: FC<{
+  file_data_list: FileData[],
+  setFileDataList: Dispatch<SetStateAction<FileData[]>>;
+}> = ({
+  file_data_list,
+  setFileDataList,
+}) => {
 
   useEffect(() => {
     fetchFiles();
