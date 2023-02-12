@@ -19,7 +19,7 @@ import React,
 } from "react";
 import ModalDefault from "../ui/modal/ModalDefault";
 import CryptoJS from "crypto-js";
-import UploadFiles from "../ui/UploadFiles";
+import UploadFilesPond from "../ui/UploadFilesPond";
 import FileStorageService from "../../api/FileStorageService";
 import { FileData } from "../../api/type/type";
 
@@ -44,7 +44,7 @@ const UploadFilesMenuPart: FC<UploadFilesMenuPartProps> = ({
       }
     );
   };
-  const onUpload = async () => { 
+  const onUpload = async () => {
     const file_list = await FileStorageService.upload({
       key: keyAES,
       file_list: fileListSelected,
@@ -98,7 +98,7 @@ const UploadFilesMenuPart: FC<UploadFilesMenuPartProps> = ({
     </FormControl>
 
     <FormControl mt={4}>
-      <UploadFiles onSelectedFile={onSelectedFile} />
+      <UploadFilesPond onSelectedFile={onSelectedFile} />
     </FormControl>
   </>);
 

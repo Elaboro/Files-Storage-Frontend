@@ -24,7 +24,7 @@ const FilesStorage: FC<FilesStorageProps> = ({
 
   useEffect(() => {
     fetchFiles();
-  });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchFiles = async () => {
     const file_data = await FileStorageService.getList();
